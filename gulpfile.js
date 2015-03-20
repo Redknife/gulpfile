@@ -10,16 +10,17 @@ var paths = {
     },
     scripts: {
         src: basePaths.src + 'js/',
-        dest: basePaths.dest + 'js/'
+        dest: basePaths.dest + 'js/',
+        vendor: basePaths.dest + 'js/vendor/'
     },
     styles: {
-        src: basePaths.src + 'sass/',
+        src: basePaths.src + 'scss/',
         dest: basePaths.dest + 'css/'
     },
     sprite: {
         src: basePaths.src + 'sprite/*.png'
     },
-    vendor: basePaths.src + 'vendor/'
+    vendor: basePaths.dest + 'vendor/'
 };
 
 var appFiles = {
@@ -33,7 +34,6 @@ var vendorFiles = {
     scripts: [
         paths.vendor + 'jquery/dist/jquery.js',
         paths.vendor + 'bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
-        paths.vendor + 'bootstrap-sass-official/assets/javascripts/bootstrap/tab.js',
         paths.vendor + 'slick.js/slick/slick.js',
         paths.vendor + 'magnific-popup/dist/jquery.magnific-popup.js',
         paths.vendor + 'jquery-form-validator/form-validator/jquery.form-validator.js'
@@ -59,7 +59,7 @@ var AUTOPREFIXER_BROWSERS = [
 
 // For pagespeed tests
 var psi = require('psi');
-var site = 'http://www.site.com',
+var site = 'http://www.saity74.ru',
     key = '';
 
 var gulp = require('gulp');
@@ -76,12 +76,12 @@ var gutil = require('gulp-util'),
 var isProduction = true,
     sassStyle = 'compressed',
     sassLineNumber = false,
-    nativeNotify = true;
+    nativeNotify = false;
 
 if (gutil.env.dev === true) {
     sassStyle = 'expanded';
     isProduction = false;
-    sassLineNumber = 'true';
+    sassLineNumber = true;
 }
 
 var changeEvent = function(evt) {
@@ -92,18 +92,14 @@ var changeEvent = function(evt) {
 
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function() {
-    return gulp.src(paths.styles.src + '*.scss')
-        .pipe($.changed('styles', {
-            extension: '.scss'
-        }))
-        .pipe($.rubySass({
-                style: sassStyle,
-                precision: 10,
-                lineNumbers: sassLineNumber,
-                loadPath: 'src/vendor/'
-            })
-            .on('error', console.error.bind(console))
-        )
+    return $.rubySass(paths.styles.src, {
+            style: sassStyle,
+            precision: 10,
+            lineNumbers: sassLineNumber,
+            loadPath: 'src/vendor/'
+        })
+
+        .on('error', console.error.bind(console))
         .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
         .pipe(gulp.dest('.tmp'))
         .pipe($.concat('styles.css'))
@@ -155,6 +151,7 @@ gulp.task('images', function() {
             interlaced: true
         })))
         .pipe(gulp.dest(paths.images.dest))
+        .pipe(livereload())
         .pipe($.size({
             title: 'images'
         }))
@@ -177,7 +174,7 @@ gulp.task('sprite', function() {
         }
     }));
     spriteData.img.pipe(gulp.dest(paths.images.dest));
-    spriteData.css.pipe(gulp.dest(paths.styles.src));
+    spriteData.css.pipe(gulp.dest(paths.styles.src+"utils"));
 });
 
 gulp.task('watch', ['styles', 'scripts'], function() {

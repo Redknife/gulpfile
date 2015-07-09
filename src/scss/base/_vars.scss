@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+$em-base: 14px !default;
+
+$color-stack:
+    (group: white, id: normal, color: #fff),
+    (group: black, id: normal, color: #000);
+
+$media-stack:
+  (group: md, id: general, rule: "only screen and (max-width: 1199px)"),
+  (group: lg, id: general, rule: "only screen and (min-width: 1200px)"),
+  (group: print, id: general, rule: "only print"),
+  (group: custom, id: screen, rule: "only screen and");

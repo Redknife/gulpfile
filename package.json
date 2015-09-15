@@ -45,7 +45,10 @@
     "browserify": "^9.0.3",
     "browserify-shim": "^3.8.2",
     "coffeeify": "~1.0.0",
-    "lodash": "^3.3.1"
+    "lodash": "^3.3.1",
+    "gulp-coffee": "",
+    "gulp-concat": "",
+    "event-stream": ""
   },
   "dependencies": {
     "jquery": "~2.1"

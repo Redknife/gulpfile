@@ -31,6 +31,11 @@ module.exports = {
     }
   },
 
+  haml: {
+    src: basePaths.src + 'haml/',
+    dest: basePaths.dest
+  },
+
   images: {
     src: basePaths.src + 'img/**',
     dest: basePaths.dest + 'img/'

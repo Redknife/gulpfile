@@ -18,6 +18,7 @@
   "browserify-shim": {},
   "devDependencies": {
     "gulp": "",
+    "gulp-ruby-haml": "",
     "gulp-load-plugins": "",
     "gulp-size": "",
     "gulp-util": "",

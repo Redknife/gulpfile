@@ -20,6 +20,8 @@
     "gulp": "",
     "gulp-ruby-haml": "",
     "gulp-load-plugins": "",
+    "gulp-order": "",
+    "streamqueue": "",
     "gulp-size": "",
     "gulp-util": "",
     "gulp-livereload": "",
